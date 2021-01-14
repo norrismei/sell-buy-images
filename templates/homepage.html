@@ -1,1 +1,14 @@
-Congrats you've reached the homepage
+<!DOCTYPE html>
+<html>
+    <h1>Upload an image</h1>
+
+    <div class="container-form-upload">
+        <form method="POST" action="/upload" id="form-image-upload" enctype="multipart/form-data">
+            <label for="image-upload">Select a file:</label><br>
+            <input type=file name="image-upload" id="image-upload" placeholder="Browse">
+            <br>
+            <button type="submit" id="image-submit">Submit</button> 
+        </form>
+        <img src="{{ image }}" height="300">
+    </div>
+</html>
