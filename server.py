@@ -32,7 +32,7 @@ cloudinary.config(
 def homepage():
     """View homepage of app"""
 
-    return render_template('homepage.html', image="")
+    return redirect('/admin')
 
 @app.route('/upload', methods=['POST'])
 def upload_image():
@@ -45,21 +45,26 @@ def upload_image():
     response = cloudinary.uploader.upload(user_file)
     image_url = response['secure_url']
 
-    crud.create_image(name=filename, url=image_url, price=price)
+    new_image = crud.create_image(name=filename, url=image_url, price=price)
 
-    return render_template('homepage.html', image=image_url)
+    if new_image:
+        flash("Image uploaded")
+        return redirect('/admin')
 
-@app.route('/inventory')
+
+@app.route('/admin')
 def manage_inventory():
     """View page to manage inventory"""
 
     return render_template('inventory.html')
+
 
 @app.route('/store')
 def view_store():
     """View public view of store"""
 
     return render_template('store.html')
+    
 
 if __name__ == '__main__':
     model.connect_to_db(app)
