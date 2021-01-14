@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+  <head>
+    <title>
+      {% block title %}{% endblock %}
+    </title>
+
+    {% block head %}
+    {% endblock %}
+  </head>
+
+  <body>
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">{{ message }}</div>
+    {% endfor %}
+    <div class="container-navigation">
+        <ul>
+            <li><a href="/">Upload Image</a></li>
+            <li><a href="/inventory">Manage Inventory</a></li>
+            <li><a href="/store">View Store</a></li>
+        </ul>
+    </div>
+    {% block body %}
+    {% endblock %}
+  </body>
+
+</html>

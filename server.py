@@ -43,6 +43,17 @@ def upload_image():
 
     return render_template('homepage.html', image=image)
 
+@app.route('/inventory')
+def manage_inventory():
+    """View page to manage inventory"""
+
+    return render_template('inventory.html')
+
+@app.route('/store')
+def view_store():
+    """View public view of store"""
+
+    return render_template('store.html')
 
 if __name__ == '__main__':
     model.connect_to_db(app)

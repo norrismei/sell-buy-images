@@ -1,5 +1,7 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base.html' %}
+{% block title %}Upload{% endblock %}
+
+{% block body %}
     <h1>Upload an image</h1>
 
     <div class="container-form-upload">
@@ -11,4 +13,4 @@
         </form>
         <img src="{{ image }}" height="300">
     </div>
-</html>
+{% endblock %}
