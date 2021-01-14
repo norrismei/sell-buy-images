@@ -8,6 +8,7 @@ import os
 import requests
 
 import model
+import crud
 
 import cloudinary
 import cloudinary.uploader
@@ -37,11 +38,16 @@ def homepage():
 def upload_image():
     """Uploads user's image to Cloudinary"""
 
-    filename = request.files.get('image-upload')
-    response = cloudinary.uploader.upload(filename)
-    image = response['secure_url']
+    user_file = request.files.get('new-image-upload')
+    filename = request.form['new-image-name']
+    price = request.form['new-image-price']
 
-    return render_template('homepage.html', image=image)
+    response = cloudinary.uploader.upload(user_file)
+    image_url = response['secure_url']
+
+    crud.create_image(name=filename, url=image_url, price=price)
+
+    return render_template('homepage.html', image=image_url)
 
 @app.route('/inventory')
 def manage_inventory():

@@ -6,9 +6,18 @@
 
     <div class="container-form-upload">
         <form method="POST" action="/upload" id="form-image-upload" enctype="multipart/form-data">
-            <label for="image-upload">Select a file:</label><br>
-            <input type=file name="image-upload" id="image-upload" placeholder="Browse">
-            <br>
+            <p>
+                <label for="new-image-name">Name of image: </label>
+                <input type="text" name="new-image-name" id="new-image-name" required>
+            </p>
+            <p>
+                <label for="new-image-price">Price: </label>
+                <input type="text" name="new-image-price" id="new-image-price" required>
+            </p>
+            <p>
+                <label for="new-image-upload">Select a file:</label><br>
+                <input type="file" name="new-image-upload" id="new-image-upload" required>
+            </p>
             <button type="submit" id="image-submit">Submit</button> 
         </form>
         <img src="{{ image }}" height="300">

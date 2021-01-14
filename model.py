@@ -14,6 +14,18 @@ def connect_to_db(flask_app, db_uri='postgresql:///imgstore', echo=False):
 
     print('Connected to the db!')
 
+class Image(db.Model):
+    """An image being sold"""
+
+    __tablename__ = "images"
+
+    id = db.Column(db.Integer,
+                   autoincrement=True,
+                   primary_key=True)
+    name = db.Column(db.String, nullable=False)
+    url = db.Column(db.String, nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    sold = db.Column(db.Boolean, default=False, nullable=False)
 
 if __name__ == '__main__':
     from server import app
