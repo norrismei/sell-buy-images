@@ -26,11 +26,24 @@
 
 <div class="container-inventory">
     {% if images %}
-        <ul>
+    <form method="POST" action="/update-inventory" id="form-update-inventory">
+        <table>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Remove</th>
+            </tr>
             {% for image in images %}
-                <li><img src="{{ image.url }}" height="150">{{ image.name }}, {{ image.price}} <button>Remove</button></li>
+            <tr>
+                <td><img src="{{ image.url }}" height="150"></td>
+                <td><input type="text" value="{{ image.name }}"></td> 
+                <td><input type="text" value="{{ image.price }}"></td>
+                <td><button>Remove</button></td>
+            </tr>
             {% endfor %}
-        </ul>
+        </table>
+    </form>
     {% endif %}
 </div>
 
