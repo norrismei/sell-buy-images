@@ -25,8 +25,8 @@
 <h1>Manage Inventory</h1>
 
 <div class="container-inventory">
-    {% if images %}
     <form method="POST" action="/update-inventory" id="form-update-inventory">
+        {% if images %}
         <table>
             <tr>
                 <th>Image</th>
@@ -43,8 +43,13 @@
             </tr>
             {% endfor %}
         </table>
+        {% else %}
+            No inventory found. Use Upload Image above to add item.
+        {% endif %}
     </form>
-    {% endif %}
 </div>
+
+{# Custom JS script tag #}
+<script src="/static/js/adminPage.js"></script>
 
 {% endblock %}
