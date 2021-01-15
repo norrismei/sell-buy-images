@@ -44,6 +44,17 @@ def update_image(id, name, price):
 
     return image
 
+
+def hide_image(id):
+    """Changes image's public attribute to False and returns object"""
+
+    image = get_image_by_id(id)
+    image.public = False
+    db.session.commit()
+
+    return image
+    
+
 if __name__ == '__main__':
     from server import app
     connect_to_db(app)

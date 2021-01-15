@@ -19,6 +19,7 @@ editOptions.on('click', 'button.save', (event) => {
         'price': imagePrice
     };
     editListing(data);
+    // Once listing is updated, save button is hidden until triggered again
     $(event.target).hide();
 } )
 
@@ -30,3 +31,15 @@ function editListing(data) {
     });
 }
 
+// When user hits remove, sends image ID to update image in database to not public
+editOptions.on('click', 'button.remove', (event) => {
+    const imageID = $(event.target).parent().parent().attr('data-image-id');
+    removeListing(imageID);
+})
+
+function removeListing(id) {
+    $.post('/api/hide-image', {"id": id}, (response) => {
+        const removeRow = $(`tr[data-image-id=${response.id}]`);
+        removeRow.remove();
+    })
+}

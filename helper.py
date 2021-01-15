@@ -11,3 +11,4 @@ def update_image(id, name, price):
         "name": updated.name,
         "price": updated.price
     }
+

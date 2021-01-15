@@ -80,6 +80,16 @@ def update_image():
     return helper.update_image(id, name, price)
 
 
+@app.route('/api/hide-image', methods=['POST'])
+def hide_image():
+    """Changes image's public attribute to false so it no longer appears in the app"""
+
+    id = request.form.get("id")
+    hidden_image = crud.hide_image(id)
+
+    return {"id": hidden_image.id}
+
+
 if __name__ == '__main__':
     model.connect_to_db(app)
 
