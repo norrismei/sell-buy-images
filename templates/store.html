@@ -4,4 +4,21 @@
 {% block body %}
     <h1>Thanks for visiting my store</h1>
 
+    {% if images %}
+    <table>
+        <tr>
+        {% for image in images %}
+            <td data-image-id="{{ image.id }}">
+                <p><img src="{{ image.url }}" height="300"></p>
+                <p>{{ image.name }}</p>
+                <p>{{ image.price }}</p>
+                <p><button type="button" class="add">Add to Cart</button></p>
+            </td>
+            {% if loop.index is divisibleby 3 %}</tr><tr>{% endif %}
+        {% endfor %}
+    </table>
+    {% else %}
+        We don't have any images for sale yet. Check back soon.
+    {% endif %}
+
 {% endblock %}

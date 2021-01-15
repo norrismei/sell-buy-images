@@ -66,7 +66,9 @@ def manage_inventory():
 def view_store():
     """View public view of store"""
 
-    return render_template('store.html')
+    images = crud.get_public_images_desc()
+
+    return render_template('store.html', images=images)
 
 
 @app.route('/api/update-image', methods=['POST'])
