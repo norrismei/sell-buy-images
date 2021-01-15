@@ -24,7 +24,25 @@ def get_public_images_desc():
     images = query_public_images()
 
     return images.order_by(Image.id.desc()).all()
-    
+
+
+def get_image_by_id(id):
+    """Returns single image that matches ID"""
+
+    image = Image.query.get(id)
+
+    return image
+
+
+def update_image(id, name, price):
+    """Makes changes to image in database and returns updated object"""
+
+    image = get_image_by_id(id)
+    image.name = name
+    image.price = price
+    db.session.commit()
+
+    return image
 
 if __name__ == '__main__':
     from server import app

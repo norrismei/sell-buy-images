@@ -9,6 +9,7 @@ import requests
 
 import model
 import crud
+import helper
 
 import cloudinary
 import cloudinary.uploader
@@ -66,6 +67,17 @@ def view_store():
     """View public view of store"""
 
     return render_template('store.html')
+
+
+@app.route('/api/update-image', methods=['POST'])
+def update_image():
+    """Updates image data per user's edits"""
+
+    id = request.form.get("id")
+    name = request.form.get("name")
+    price = request.form.get("price")
+
+    return helper.update_image(id, name, price)
 
 
 if __name__ == '__main__':
