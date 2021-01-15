@@ -22,4 +22,16 @@
     </form>
 </div>
 
+<h1>Manage Inventory</h1>
+
+<div class="container-inventory">
+    {% if images %}
+        <ul>
+            {% for image in images %}
+                <li><img src="{{ image.url }}" height="150">{{ image.name }}, {{ image.price}} <button>Remove</button></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+
 {% endblock %}

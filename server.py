@@ -56,7 +56,9 @@ def upload_image():
 def manage_inventory():
     """View page to manage inventory"""
 
-    return render_template('inventory.html')
+    images = crud.get_public_images_desc()
+
+    return render_template('inventory.html', images=images)
 
 
 @app.route('/store')
@@ -64,7 +66,7 @@ def view_store():
     """View public view of store"""
 
     return render_template('store.html')
-    
+
 
 if __name__ == '__main__':
     model.connect_to_db(app)
