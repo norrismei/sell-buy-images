@@ -27,10 +27,12 @@ function getImageData(event) {
     const imageID = $(event.target).parent().parent().attr('data-image-id')
     const imageName = $(event.target).parent().siblings('.store-image-name').html();
     const imagePrice = $(event.target).parent().siblings('.store-image-price').html();
+    const imageURL = $(event.target).parent().siblings('.store-image-url').children().attr('src');
     const data = {
         'id': imageID,
         'name': imageName,
-        'price': imagePrice
+        'price': imagePrice,
+        'url': imageURL
     }
     return data;
 }

@@ -5,3 +5,7 @@ button.save {
 .hide {
     display: none;
 }
+
+#order-subtotal {
+    font-weight: bold;
+}

@@ -12,3 +12,11 @@ def update_image(id, name, price):
         "price": updated.price
     }
 
+def get_subtotal(cart):
+    """Receives cart items and adds up prices"""
+
+    # Cart format: {image_id: [name, price, url]}
+    subtotal = sum([item_data[1] for item_data in cart.values()])
+
+    return subtotal
+

@@ -78,9 +78,22 @@ def view_store():
         cart = session['cart']
         cart_size = str(len(cart))
         image_ids = list(cart.keys())
-        print('image ids', image_ids)
 
     return render_template('store.html', images=images, cart_size=cart_size, image_ids=image_ids)
+
+
+@app.route('/cart')
+def view_cart():
+    """View items in shopping cart, total, and checkout"""
+    
+    cart_items = {}
+    subtotal = ""
+
+    if 'cart' in session:
+        cart_items = session['cart']
+        subtotal = helper.get_subtotal(cart_items)
+
+    return render_template('cart.html', cart_items=cart_items, subtotal=subtotal)
 
 
 @app.route('/api/update-image', methods=['POST'])
@@ -113,11 +126,12 @@ def add_to_cart():
 
     cart = session['cart']
 
-    id = request.form.get('id')
+    id = request.form.get("id")
     name = request.form.get("name")
     price = float(request.form.get("price"))
+    url = request.form.get("url")
 
-    cart[id] = [name, price]
+    cart[id] = [name, price, url]
     cart_size = str(len(cart))
     
     # Save the updated cart dictionary to session

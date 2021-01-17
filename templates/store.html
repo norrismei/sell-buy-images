@@ -3,14 +3,14 @@
 
 {% block body %}
     <h1>Thanks for visiting my store</h1>
-    <a href="/cart.html" id="view-cart-link">View Cart ({{ cart_size }})</a>
+    <a href="/cart" id="view-cart-link">View Cart ({{ cart_size }})</a>
 
     {% if images %}
     <table>
         <tr>
         {% for image in images %}
             <td data-image-id="{{ image.id }}">
-                <p><img src="{{ image.url }}" height="300"></p>
+                <p class="store-image-url"><img src="{{ image.url }}" height="300"></p>
                 <p class="store-image-name">{{ image.name }}</p>
                 <p class="store-image-price">{{ image.price }}</p>
                 <p>
