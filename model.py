@@ -2,6 +2,7 @@
 
 from flask_sqlalchemy import SQLAlchemy 
 import os
+import enum
 
 db = SQLAlchemy()
 
@@ -15,10 +16,15 @@ def connect_to_db(flask_app, db_uri='postgresql:///imgstore', echo=False):
 
     print('Connected to the db!')
 
-class Image(db.Model):
-    """An image uploaded to repository"""
+class InventoryStatus(enum.Enum):
+    """Pre-defined set of inventory statuses an inventory image can have"""
+    FOR_SALE = enum.auto()
+    REMOVED = enum.auto()   
 
-    __tablename__ = "images"
+class InventoryImage(db.Model):
+    """An image uploaded for sale"""
+
+    __tablename__ = "inventory_images"
 
     id = db.Column(db.Integer,
                    autoincrement=True,
@@ -26,7 +32,9 @@ class Image(db.Model):
     name = db.Column(db.String, nullable=False)
     url = db.Column(db.String, nullable=False)
     price = db.Column(db.Float, nullable=False)
-    public = db.Column(db.Boolean, default=True, nullable=False)
+    status = db.Column(db.Enum(InventoryStatus), nullable=False, default="FOR_SALE")
+    created_at = db.Column(db.DateTime(timezone=True), server_default=db.func.now())
+
 
 if __name__ == '__main__':
     from server import app

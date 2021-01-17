@@ -57,7 +57,7 @@ def upload_image():
 def manage_inventory():
     """View page to manage inventory"""
 
-    images = crud.get_public_images_desc()
+    images = crud.get_for_sale_images_desc()
 
     return render_template('inventory.html', images=images)
 
@@ -66,7 +66,7 @@ def manage_inventory():
 def view_store():
     """View public view of store"""
 
-    images = crud.get_public_images_desc()
+    images = crud.get_for_sale_images_desc()
 
     return render_template('store.html', images=images)
 
@@ -84,12 +84,13 @@ def update_image():
 
 @app.route('/api/hide-image', methods=['POST'])
 def hide_image():
-    """Changes image's public attribute to false so it no longer appears in the app"""
+    """Changes image's status to REMOVED so it no longer appears in the app"""
 
     id = request.form.get("id")
     hidden_image = crud.hide_image(id)
 
     return {"id": hidden_image.id}
+
 
 
 if __name__ == '__main__':
