@@ -15,7 +15,7 @@
                 <p class="store-image-price">{{ image.price }}</p>
                 <p>
                     {% if image.id|string in image_ids %}
-                    <button type="button" class="add-to-cart hide">Don't add</button>
+                    <button type="button" class="add-to-cart hide">Add to Cart</button>
                     <button type="button" class="remove-from-cart">Remove from Cart</button>
                     {% else %}
                     <button type="button" class="add-to-cart">Add to Cart</button>

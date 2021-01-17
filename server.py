@@ -119,12 +119,29 @@ def add_to_cart():
 
     cart[id] = [name, price]
     cart_size = str(len(cart))
-    print(cart)
     
     # Save the updated cart dictionary to session
     session['cart'] = cart
 
     return {'cart_size': cart_size}
+
+@app.route('/api/remove-from-cart', methods=["POST"])
+def remove_from_cart():
+    """Removes existing item from cart stored in Flask session"""
+
+    cart = session['cart']
+
+    id = request.form.get("image_id")
+
+    # Remove item from cart by its ID
+    del cart[id]
+    cart_size = str(len(cart))
+
+    # Save the updated cart dictionary to session
+    session['cart'] = cart
+
+    return {'cart_size': cart_size}
+
 
 if __name__ == '__main__':
     model.connect_to_db(app)
