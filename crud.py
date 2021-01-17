@@ -1,8 +1,9 @@
 """CRUD operations"""
 
-from model import (db, connect_to_db, InventoryImage)
+from model import (db, connect_to_db, InventoryImage, User)
 
 def create_image(name, url, price):
+    """Creates new row in inventory_images table and returns new image"""
     image = InventoryImage(name=name, url=url, price=price)
 
     db.session.add(image)
@@ -53,6 +54,16 @@ def hide_image(id):
     db.session.commit()
 
     return image
+
+def create_user(fname, lname, email):
+    """Creates new row in users table and returns new user"""
+
+    user = User(first_name=fname, last_name=lname, email=email)
+
+    db.session.add(user)
+    db.session.commit()
+
+    return user
 
 
 if __name__ == '__main__':

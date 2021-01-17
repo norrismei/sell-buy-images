@@ -3,9 +3,9 @@
 
 {% block body %}
     <h1>View Cart</h1>
+    {% if cart_items %}
     <a href="/store" id="view-store-link">Continue Shopping</a>
     <p>
-    {% if cart_items %}
         <table>
             <tr>
                 <th>Image</th>
@@ -29,6 +29,33 @@
                 <td>{{ '%.2f'|format(subtotal) }}</td>
             </tr>
         </table>
+        <h2>Complete customer details to finalize your purchase</h2>
+        <div class="container-payment-form">
+            <form method="POST" action="/api/process-order" id="form-payment">
+                <p>
+                    <label for="order-user-fname">First Name: </label>
+                    <input type="text" name="order-user-fname" id="order-user-fname" required>
+                </p>
+                <p>
+                    <label for="order-user-lname">Last Name: </label>
+                    <input type="text" name="order-user-lname" id="order-user-lname" required>
+                </p>
+                <p>
+                    <label for="order-user-email">Email: </label>
+                    <input type="text" name="order-user-email" id="order-user-email" required>
+                </p>
+                <p>
+                    <label for="order-user-card-no">Credit Card Number: </label>
+                    <input type="text" name="order-user-card-no" id="order-user-card-no" required>
+                </p>
+                <p>
+                    <label for="order-user-card-exp-mo">Card Expiration Date [MM/YY]: </label>
+                    <input type="text" name="order-user-card-exp-mo" id="order-user-card-exp-mo" required>/
+                    <input type="text" name="order-user-card-exp-yr" id="order-user-card-exp-yr" required>
+                </p>
+                <button type="submit" id="order-submit">Submit</button> 
+            </form>
+        </div>
     {% else %}
         Your cart is empty. Go to <a href="/store">store</a> to start shopping.
     {% endif %}

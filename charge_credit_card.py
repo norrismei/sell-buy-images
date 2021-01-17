@@ -11,9 +11,9 @@ merchantAuth = apicontractsv1.merchantAuthenticationType()
 merchantAuth.name = api_login_id
 merchantAuth.transactionKey = transaction_key
 
-def charge(card_number, expiration_date, amount, merchant_id):
+def charge(card_number, expiration_date, amount, merchant_id="Celeste Noche"):
     """Executes transaction for specified amount on card number passed in"""
-    
+
     creditCard = apicontractsv1.creditCardType()
     creditCard.cardNumber = card_number
     creditCard.expirationDate = expiration_date
@@ -39,5 +39,7 @@ def charge(card_number, expiration_date, amount, merchant_id):
 
     if (response.messages.resultCode=="Ok"):
         print("Transaction ID : %s"% response.transactionResponse.transId)
+        return True
     else:
         print("response code: %s"% response.messages.resultCode)
+        return False

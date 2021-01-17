@@ -10,6 +10,7 @@ import requests
 import model
 import crud
 import helper
+import charge_credit_card
 
 import cloudinary
 import cloudinary.uploader
@@ -156,6 +157,31 @@ def remove_from_cart():
 
     return {'cart_size': cart_size}
 
+@app.route('/api/process-order', methods=['POST'])
+def process_order():
+    """Processes order after user submits payment info"""
+
+    card_number = request.form.get("order-user-card-no")
+    expiration_mo = request.form.get("order-user-card-exp-mo")
+    expiration_yr = request.form.get("order-user-card-exp-yr")
+    exp_date = helper.format_expiration_date(expiration_mo, expiration_yr)
+    cart_items = session['cart']
+    amt = helper.get_subtotal(cart_items)
+    rounded_amt = helper.format_price(amt)
+
+    charged = charge_credit_card.charge(card_number, exp_date, rounded_amt)
+
+    if charged:
+        del session['cart']
+        # fname = request.form.get("order-user-fname")
+        # lname = request.form.get("order-user-lname")
+        # email = request.form.get("order-user-email")
+        # user = crud.create_user(fname, lname, email)
+        flash("Mock payment processed. Order complete")
+        return redirect('/store')
+    else:
+        flash("There was a problem with your payment. Please check payment details.")
+        return redirect('/cart')
 
 if __name__ == '__main__':
     model.connect_to_db(app)
