@@ -57,6 +57,9 @@ def upload_image():
 def manage_inventory():
     """View page to manage inventory"""
 
+    if 'cart' in session:
+        del session['cart']
+
     images = crud.get_for_sale_images_desc()
 
     return render_template('inventory.html', images=images)
@@ -67,8 +70,17 @@ def view_store():
     """View public view of store"""
 
     images = crud.get_for_sale_images_desc()
+    
+    cart_size = ""
+    image_ids = []
 
-    return render_template('store.html', images=images)
+    if 'cart' in session:
+        cart = session['cart']
+        cart_size = str(len(cart))
+        image_ids = list(cart.keys())
+        print('image ids', image_ids)
+
+    return render_template('store.html', images=images, cart_size=cart_size, image_ids=image_ids)
 
 
 @app.route('/api/update-image', methods=['POST'])
@@ -92,6 +104,27 @@ def hide_image():
     return {"id": hidden_image.id}
 
 
+@app.route('/api/add-to-cart', methods=['POST'])
+def add_to_cart():
+    """Creates cart if user hasn't started one. Adds item to cart, stored in Flask session"""
+
+    if 'cart' not in session:
+        session['cart'] = {}
+
+    cart = session['cart']
+
+    id = request.form.get('id')
+    name = request.form.get("name")
+    price = float(request.form.get("price"))
+
+    cart[id] = [name, price]
+    cart_size = str(len(cart))
+    print(cart)
+    
+    # Save the updated cart dictionary to session
+    session['cart'] = cart
+
+    return {'cart_size': cart_size}
 
 if __name__ == '__main__':
     model.connect_to_db(app)

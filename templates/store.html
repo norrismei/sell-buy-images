@@ -3,6 +3,7 @@
 
 {% block body %}
     <h1>Thanks for visiting my store</h1>
+    <a href="/cart.html" id="view-cart-link">View Cart ({{ cart_size }})</a>
 
     {% if images %}
     <table>
@@ -10,9 +11,17 @@
         {% for image in images %}
             <td data-image-id="{{ image.id }}">
                 <p><img src="{{ image.url }}" height="300"></p>
-                <p>{{ image.name }}</p>
-                <p>{{ image.price }}</p>
-                <p><button type="button" class="add">Add to Cart</button></p>
+                <p class="store-image-name">{{ image.name }}</p>
+                <p class="store-image-price">{{ image.price }}</p>
+                <p>
+                    {% if image.id|string in image_ids %}
+                    <button type="button" class="add-to-cart hide">Don't add</button>
+                    <button type="button" class="remove-from-cart">Remove from Cart</button>
+                    {% else %}
+                    <button type="button" class="add-to-cart">Add to Cart</button>
+                    <button type="button" class="remove-from-cart hide">Remove from Cart</button>
+                    {% endif %}
+                </p>
             </td>
             {% if loop.index is divisibleby 3 %}</tr><tr>{% endif %}
         {% endfor %}
@@ -20,5 +29,8 @@
     {% else %}
         We don't have any images for sale yet. Check back soon.
     {% endif %}
+
+{# Custom JS script tag #}
+<script src="/static/js/storePage.js"></script>
 
 {% endblock %}

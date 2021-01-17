@@ -31,7 +31,7 @@ function editListing(data) {
     });
 }
 
-// When user hits remove, sends image ID to update image in database to not public
+// When user hits remove, sends image ID to update image status in database to REMOVED
 editOptions.on('click', 'button.remove', (event) => {
     const imageID = $(event.target).parent().parent().attr('data-image-id');
     removeListing(imageID);
