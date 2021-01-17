@@ -4,7 +4,7 @@ const editField = $('.edit-inventory');
 const editOptions = $('.edit-options');
 
 // Save button appears whenever user clicks on a field to edit
-editField.on('click', (event) => {
+editField.on('click select', (event) => {
     $(event.target).parent().siblings('.edit-options').children('.save').show();
 })
 
@@ -26,8 +26,8 @@ editOptions.on('click', 'button.save', (event) => {
 function editListing(data) {
     $.post('/api/update-image', data, (response) => {
         const updateRow = $(`tr[data-image-id=${response.id}]`);
-        updateRow.children('td.image-name').attr('value', response.name);
-        updateRow.children('td.image-price').attr('value', response.price);
+        updateRow.children('td.image-name').children().attr('value', response.name);
+        updateRow.children('td.image-price').html(`<input type="text" class="edit-inventory" value="${response.price.toFixed(2)}">`);
     });
 }
 

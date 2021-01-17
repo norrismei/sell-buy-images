@@ -12,7 +12,7 @@
             <td data-image-id="{{ image.id }}">
                 <p class="store-image-url"><img src="{{ image.url }}" height="300"></p>
                 <p class="store-image-name">{{ image.name }}</p>
-                <p class="store-image-price">{{ image.price }}</p>
+                <p class="store-image-price">{{ '%.2f'|format(image.price) }}</p>
                 <p>
                     {% if image.id|string in image_ids %}
                     <button type="button" class="add-to-cart hide">Add to Cart</button>

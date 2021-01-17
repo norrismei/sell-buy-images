@@ -17,7 +17,7 @@
             <tr data-image-id="{{ item_id }}">
                 <td><img src="{{ item_data[2] }}" height="50"></td>
                 <td class="image-name">{{ item_data[0] }}</td> 
-                <td class="image-price">{{ item_data[1] }}</td>
+                <td class="image-price">{{ '%.2f'|format(item_data[1]) }}</td>
                 <td>
                     <button type="button" class="remove">Remove</button>
                 </td>
@@ -26,7 +26,7 @@
             <tr id="order-subtotal">
                 <td></td>
                 <td>Subtotal</td>
-                <td>{{ subtotal }}</td>
+                <td>{{ '%.2f'|format(subtotal) }}</td>
             </tr>
         </table>
     {% else %}

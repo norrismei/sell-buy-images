@@ -38,7 +38,7 @@
             <tr data-image-id="{{ image.id }}">
                 <td><img src="{{ image.url }}" height="150"></td>
                 <td class="image-name"><input type="text" class="edit-inventory" value="{{ image.name }}"></td> 
-                <td class="image-price"><input type="text" class="edit-inventory" value="{{ image.price }}"></td>
+                <td class="image-price"><input type="text" class="edit-inventory" value="{{ '%.2f'|format(image.price) }}"></td>
                 <td class="edit-options">
                     <button type="button" class="save">Save</button>
                     <button type="button" class="remove">Remove</button>
