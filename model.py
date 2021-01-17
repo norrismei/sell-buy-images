@@ -35,6 +35,39 @@ class InventoryImage(db.Model):
     status = db.Column(db.Enum(InventoryStatus), nullable=False, default="FOR_SALE")
     created_at = db.Column(db.DateTime(timezone=True), server_default=db.func.now())
 
+class Order(db.Model):
+    """A completed, submitted order"""
+
+    __tablename_ = "orders"
+
+    id = db.Column(db.Integer,
+                   autoincrement=True,
+                   primary_key=True)
+    user_id = db.Column(db.Integer, nullable=False)
+    discount = db.Column(db.Float)
+    created_at = db.Column(db.DateTime(timezone=True), server_default=db.func.now())
+
+class OrderItem(db.Model):
+    """Abstract table for an InventoryImage in an Order"""
+
+    __tablename__ = "order_items"
+
+    id = db.Column(db.Integer,
+                   autoincrement=True,
+                   primary_key=True)
+    order_id = db.Column(db.Integer, nullable=False)
+    image_id = db.Column(db.Integer, nullable=False)
+
+class User(db.Model):
+    """A customer who has submitted at least one order"""
+
+    id = db.Column(db.Integer,
+                   autoincrement=True,
+                   primary_key=True)
+    first_name = db.Column(db.String, nullable=False)
+    last_name = db.Column(db.String, nullable=False)
+    email = db.Column(db.String, nullable=False)
+
 
 if __name__ == '__main__':
     from server import app
