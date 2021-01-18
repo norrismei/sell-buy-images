@@ -36,3 +36,9 @@ def format_expiration_date(exp_mo, exp_yr):
     print(formatted_exp)
 
     return formatted_exp
+
+def record_order_items(order_id, order_items):
+    """For each item in cart, creates new OrderItem"""
+
+    for item_id in order_items.keys():
+        crud.create_order_item(order_id, item_id)

@@ -11,16 +11,12 @@
                 <th>Image</th>
                 <th>Name</th>
                 <th>Price</th>
-                <th>Remove</th>
             </tr>
             {% for item_id, item_data in cart_items.items() %}
             <tr data-image-id="{{ item_id }}">
-                <td><img src="{{ item_data[2] }}" height="50"></td>
+                <td><img src="{{ item_data[2] }}" height="75"></td>
                 <td class="image-name">{{ item_data[0] }}</td> 
                 <td class="image-price">{{ '%.2f'|format(item_data[1]) }}</td>
-                <td>
-                    <button type="button" class="remove">Remove</button>
-                </td>
             </tr>
             {% endfor %}
             <tr id="order-subtotal">

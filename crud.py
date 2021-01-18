@@ -1,6 +1,6 @@
 """CRUD operations"""
 
-from model import (db, connect_to_db, InventoryImage, User)
+from model import (db, connect_to_db, InventoryImage, User, Order, OrderItem)
 
 def create_image(name, url, price):
     """Creates new row in inventory_images table and returns new image"""
@@ -65,6 +65,25 @@ def create_user(fname, lname, email):
 
     return user
 
+def create_order(user_id, discount=None):
+    """Creates new row in orders table once payment is successful. Returns order"""
+
+    order = Order(user_id=user_id, discount=discount)
+
+    db.session.add(order)
+    db.session.commit()
+
+    return order
+
+def create_order_item(order_id, image_id):
+    """Creates and returns new abstract Order Item"""
+
+    order_item = OrderItem(order_id=order_id, image_id=image_id)
+
+    db.session.add(order_item)
+    db.session.commit()
+
+    return order_item
 
 if __name__ == '__main__':
     from server import app

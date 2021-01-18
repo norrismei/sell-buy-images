@@ -2,10 +2,10 @@
 {% block title %}Store{% endblock %}
 
 {% block body %}
-    <h1>Thanks for visiting my store</h1>
-    <a href="/cart" id="view-cart-link">View Cart ({{ cart_size }})</a>
-
+    <h1>Thanks for Visiting My Store</h1>
+    <p>Your purchase of an image gives you permission to use the image in a digital format.</p>
     {% if images %}
+    <a href="/cart" id="view-cart-link">View Cart ({{ cart_size }})</a>
     <table>
         <tr>
         {% for image in images %}

@@ -58,9 +58,6 @@ def upload_image():
 def manage_inventory():
     """View page to manage inventory"""
 
-    if 'cart' in session:
-        del session['cart']
-
     images = crud.get_for_sale_images_desc()
 
     return render_template('inventory.html', images=images)
@@ -172,11 +169,16 @@ def process_order():
     charged = charge_credit_card.charge(card_number, exp_date, rounded_amt)
 
     if charged:
+        fname = request.form.get("order-user-fname")
+        lname = request.form.get("order-user-lname")
+        email = request.form.get("order-user-email")
+        user = crud.create_user(fname, lname, email)
+
+        order = crud.create_order(user.id)
+        order_items = session['cart']
+        helper.record_order_items(order.id, order_items)
+
         del session['cart']
-        # fname = request.form.get("order-user-fname")
-        # lname = request.form.get("order-user-lname")
-        # email = request.form.get("order-user-email")
-        # user = crud.create_user(fname, lname, email)
         flash("Mock payment processed. Order complete")
         return redirect('/store')
     else:

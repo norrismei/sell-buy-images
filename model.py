@@ -38,7 +38,7 @@ class InventoryImage(db.Model):
 class Order(db.Model):
     """A completed, submitted order"""
 
-    __tablename_ = "orders"
+    __tablename__= "orders"
 
     id = db.Column(db.Integer,
                    autoincrement=True,
@@ -60,6 +60,8 @@ class OrderItem(db.Model):
 
 class User(db.Model):
     """A customer who has submitted at least one order"""
+
+    __tablename__ = "users"
 
     id = db.Column(db.Integer,
                    autoincrement=True,
